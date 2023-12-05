@@ -6,6 +6,8 @@ pub mod day3_1;
 pub mod day3_2;
 pub mod day4_1;
 pub mod day4_2;
+pub mod day5_1;
+pub mod day5_2;
 
 use std::collections::HashMap;
 
@@ -19,6 +21,8 @@ fn main() {
     day_fns.insert("3.2".to_string(), day3_2::run);
     day_fns.insert("4.1".to_string(), day4_1::run);
     day_fns.insert("4.2".to_string(), day4_2::run);
+    day_fns.insert("5.1".to_string(), day5_1::run);
+    day_fns.insert("5.2".to_string(), day5_2::run);
 
     println!("What day to solve? EG: 1.1, 1.2,...");
     let mut day_string: String = String::new();
@@ -26,18 +30,24 @@ fn main() {
     day_string = day_string.trim().to_string();
     let func = day_fns.get(&day_string).unwrap();
     
-    println!("No crash? I'm impressed, you can enter a proper input. Enter your challenge. When done - please add an empty newline. Let's hope no challenges use empty newlines because then I will need to think...");
+    println!("No crash? I'm impressed, you can enter a proper input. Enter your challenge. When done - please add 2 empty newlines. Let's hope no challenges use 2 empty newlines because then I will need to think...");
     let mut challenge: String = String::new();
     let mut input: String = String::new();
+    let mut last_empty = false;
     loop {
         input.clear();
         _ = std::io::stdin().read_line(&mut input).unwrap();
-        challenge.push_str(input.as_str());
+        challenge.push_str(input.replace("\r", "").as_str());
         if input.trim().is_empty() {
-            break;
+            if last_empty {
+                break;
+            }
+            last_empty = true;
+            continue;
         }
+        last_empty = false;
     }
-    challenge = challenge.trim_end_matches("\r\n").to_string();
+    challenge = challenge.trim_end_matches("\n").to_string();
     println!("{}", func(challenge));
 
     println!("Press any key to close the application.");
