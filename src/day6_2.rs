@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 pub fn run(inp: String) -> String {
     let replaced = inp.replace(' ', "");
     let split: Vec<&str> = replaced.split('\n').collect();
@@ -31,10 +29,4 @@ pub fn run(inp: String) -> String {
 
 pub fn parse_numbers(inp: &str) -> Vec<usize> {
     return inp.trim().split(":").filter_map(|i| i.parse().ok()).collect();
-}
-
-pub struct Card {
-    pub id: usize,
-    pub winning_numbers: HashSet<usize>,
-    pub your_numbers: HashSet<usize>,
 }
