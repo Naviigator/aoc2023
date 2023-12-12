@@ -8,6 +8,8 @@ pub mod day4_1;
 pub mod day4_2;
 pub mod day5_1;
 pub mod day5_2;
+pub mod day6_1;
+pub mod day6_2;
 
 use std::collections::HashMap;
 
@@ -23,6 +25,8 @@ fn main() {
     day_fns.insert("4.2".to_string(), day4_2::run);
     day_fns.insert("5.1".to_string(), day5_1::run);
     day_fns.insert("5.2".to_string(), day5_2::run);
+    day_fns.insert("6.1".to_string(), day6_1::run);
+    day_fns.insert("6.2".to_string(), day6_2::run);
 
     println!("What day to solve? EG: 1.1, 1.2,...");
     let mut day_string: String = String::new();
