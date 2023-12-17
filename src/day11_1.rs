@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use crate::day10_1::Coordinate;
 
 pub fn run(inp: String) -> String {
@@ -18,11 +20,11 @@ pub fn run(inp: String) -> String {
 pub fn parse(inp: String, distance: usize) -> Vec<Coordinate> {
     let mut parsed = Vec::new();
     let mut buffer = Vec::new();
-    let mut empty_row = Vec::new();
+    let mut empty_row = HashSet::new();
     for ele in inp.chars() {
         if ele == '\n' {
             if !buffer.contains(&'#') {
-                empty_row.push(parsed.len());
+                empty_row.insert(parsed.len());
             }
             parsed.push(buffer);
             buffer = Vec::new();
@@ -31,11 +33,11 @@ pub fn parse(inp: String, distance: usize) -> Vec<Coordinate> {
         buffer.push(ele);
     }
     if !buffer.contains(&'#') {
-        empty_row.push(parsed.len());
+        empty_row.insert(parsed.len());
     }
     parsed.push(buffer);
     
-    let mut empty_col = Vec::new();
+    let mut empty_col = HashSet::new();
     let mut x = 0;
     while x < parsed.get(0).unwrap().len() {
         let mut empty = true;
@@ -46,7 +48,7 @@ pub fn parse(inp: String, distance: usize) -> Vec<Coordinate> {
             }
         }
         if empty {
-            empty_col.push(x);
+            empty_col.insert(x);
         }
         x+=1;
     }
